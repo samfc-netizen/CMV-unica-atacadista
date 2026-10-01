@@ -94,6 +94,35 @@ def read_report(uploaded):
     out['coluna_custo'] = cost_col
     return out, cost_col
 
+
+# Manual / passo a passo
+MANUAL_PDF = "Passo_a_Passo_Extracao_CMV_Autcom.pdf"
+
+st.markdown("""
+<div style="background:white;border:1px solid #e5eaf0;border-radius:16px;
+padding:18px 20px;margin:0 0 22px 0;box-shadow:0 7px 22px rgba(15,23,42,.04)">
+    <div style="font-weight:800;color:#0f172a;font-size:1.05rem">Precisa de ajuda para extrair as bases?</div>
+    <div style="color:#64748b;font-size:.9rem;margin-top:4px">
+        Consulte o passo a passo com os filtros e relatórios que devem ser extraídos do Autcom.
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+try:
+    with open(MANUAL_PDF, "rb") as pdf_file:
+        st.download_button(
+            label="📘 Abrir / baixar passo a passo",
+            data=pdf_file.read(),
+            file_name=MANUAL_PDF,
+            mime="application/pdf",
+            use_container_width=True
+        )
+except FileNotFoundError:
+    st.warning(
+        f"Manual não encontrado. Coloque o arquivo '{MANUAL_PDF}' "
+        "na mesma pasta do app_cmv.py."
+    )
+
 st.markdown("### 1. Anexe as três bases")
 files = st.file_uploader(
     "Selecione os relatórios CSV exportados do sistema",
